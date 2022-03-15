@@ -1,0 +1,23 @@
+[33mcommit 45503fcdd3f99381e77f5e3612f34bb3ae67dc40[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;33mtag: step-3[m[33m)[m
+Author: Nasir Ahmad <>
+Date:   Mon Mar 14 17:40:09 2022 -0400
+
+    Stage-3
+
+[33mcommit 8a73a6ef17a6e04bafeb951befccd57457db6244[m[33m ([m[1;33mtag: step-2[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Nasir Ahmad <nahmad@resqsoft.com>
+Date:   Mon Mar 14 06:41:07 2022 -0400
+
+    step -3
+
+[33mcommit d7484ccc2debad2c9c3b3cb649557af232cf64ed[m
+Author: Nasir Ahmad <nahmad@resqsoft.com>
+Date:   Mon Mar 14 06:32:25 2022 -0400
+
+    step -2
+
+[33mcommit b0ded1a9805c52bcb2fc9cc6271f5bb4554a5c58[m[33m ([m[1;33mtag: step-1[m[33m)[m
+Author: Nasir Ahmad <nahmad@resqsoft.com>
+Date:   Mon Mar 14 04:27:46 2022 -0400
+
+    first commit'
