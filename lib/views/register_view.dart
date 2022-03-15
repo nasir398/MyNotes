@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as devtools show log;
 
 import 'package:mynotes/constants/routes.dart';
+import 'package:mynotes/services/auth/auth_exceptions.dart';
+import 'package:mynotes/services/auth/auth_service.dart';
 
 import '../utilities/show_error_dialog.dart';
 
@@ -57,35 +58,33 @@ class _RegisterViewState extends State<RegisterView> {
               final password = _password.text;
 
               try {
-                await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                await AuthService.firebase().createUser(
                   email: email,
                   password: password,
                 );
-                final user = FirebaseAuth.instance.currentUser;
-                await user?.sendEmailVerification();
+                //final user = AuthService.firebase().currentUser;
+                AuthService.firebase().sendEmailVerification();
+
                 Navigator.of(context).pushNamed(verifyEmailRoute);
-              } on FirebaseAuthException catch (e) {
-                devtools.log(e.code);
-                if (e.code == 'invalid-email') {
-                  await showErrorDialog(
-                    context,
-                    "Invlaid email address",
-                  );
-                } else if (e.code == 'weak-password') {
-                  await showErrorDialog(
-                    context,
-                    "Weak Passwrod",
-                  );
-                } else {
-                  await showErrorDialog(
-                    context,
-                    "Error : ${e.code}",
-                  );
-                }
-              } catch (e) {
+              } on InvalidEmailAuthException {
                 await showErrorDialog(
                   context,
-                  "Error : ${e.toString()}",
+                  "Invlaid email address",
+                );
+              } on WeakPasswordAuthException {
+                await showErrorDialog(
+                  context,
+                  "Weak Passwrod",
+                );
+              } on EmailAlreadyInUseAuthException {
+                await showErrorDialog(
+                  context,
+                  "Email already registered. Please login.",
+                );
+              } on GenericAuthException {
+                await showErrorDialog(
+                  context,
+                  "Error Occured",
                 );
               }
             },
