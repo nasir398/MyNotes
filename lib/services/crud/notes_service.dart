@@ -15,13 +15,18 @@ class NotesService {
   Database? _db;
 
   List<DatabaseNote> _notes = [];
-  
-  static final NotesService _shared = NotesService._shareInstance();
-  NotesService._shareInstance();
+
+  static final NotesService _shared = NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController = StreamController<List<DatabaseNote>>.broadcast(
+      onListen: () {
+        _notesStreamController.sink.add(_notes);
+      },
+    );
+  }
   factory NotesService() => _shared;
 
-  final _notesStreamController =
-      StreamController<List<DatabaseNote>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
 
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
@@ -119,7 +124,7 @@ class NotesService {
       throw CouldNotDeleteNote();
     } else {
       _notes.removeWhere((note) => note.id == id);
-      _notesStreamController.add((_notes));
+      _notesStreamController.add(_notes);
     }
   }
 
@@ -160,7 +165,7 @@ class NotesService {
     final results = await db.query(
       userTable,
       limit: 1,
-      where: 'email',
+      where: 'email = ?' ,
       whereArgs: [email.toLowerCase()],
     );
     if (results.isEmpty) {
@@ -176,7 +181,7 @@ class NotesService {
     final results = await db.query(
       userTable,
       limit: 1,
-      where: 'email',
+      where: 'email = ?',
       whereArgs: [email.toLowerCase()],
     );
     if (results.isNotEmpty) {
@@ -232,7 +237,7 @@ class NotesService {
 
   Future<void> open() async {
     if (_db != null) {
-      throw DatabaseAlreadyOpenException;
+      throw DatabaseAlreadyOpenException();
     }
 
     try {
@@ -294,7 +299,7 @@ class DatabaseNote {
         userId = map[userIdColumn] as int,
         text = map[textColumn] as String,
         isSyncedWithCloud =
-            map[isSyncedWithCloudColumn] as int == 1 ? true : false;
+            (map[isSyncedWithCloudColumn] as int ) == 1 ? true : false;
 
   @override
   String toString() =>
