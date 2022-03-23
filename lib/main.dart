@@ -10,7 +10,8 @@ import 'package:mynotes/views/verify_email_view.dart';
 import 'dart:developer' as devtools show log;
 
 //import 'firebase_options.dart';
-import 'views/notes_views.dart';
+import 'views/notes/new_note_view.dart';
+import 'views/notes/notes_views.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,8 @@ void main() {
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const NotesView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
+      newNoteRoute :(context) => const NewNoteView(),
+
     },
   ));
 }
