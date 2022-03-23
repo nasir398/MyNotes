@@ -10,7 +10,7 @@ import 'package:mynotes/views/verify_email_view.dart';
 import 'dart:developer' as devtools show log;
 
 //import 'firebase_options.dart';
-import 'views/notes/new_note_view.dart';
+import 'views/notes/create_update_note_view.dart';
 import 'views/notes/notes_views.dart';
 
 void main() {
@@ -26,7 +26,7 @@ void main() {
       registerRoute: (context) => const RegisterView(),
       notesRoute: (context) => const NotesView(),
       verifyEmailRoute: (context) => const VerifyEmailView(),
-      newNoteRoute :(context) => const NewNoteView(),
+      createOrUpdateNoteRoute :(context) => const CreateUpdateNoteView(),
 
     },
   ));
