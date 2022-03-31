@@ -42,4 +42,10 @@ class AuthService implements AuthProvider {
 
   @override
   Future<void> initailize() => provider.initailize();
+
+  @override
+  Future<void> sendPasswordReset({required String toEmail}) =>
+      provider.sendPasswordReset(
+        toEmail: toEmail,
+      );
 }
